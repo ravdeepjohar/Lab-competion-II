@@ -35,6 +35,7 @@ for line in sents:
     line = line.rstrip("\n")
     parts = line.split("\t")
     sent = parts[-1]
+    sent = sent.lower()
     sent = re.sub(r'-', ' ', sent)  # replace hyphen with space
     out = sent.translate(string.maketrans("",""), string.punctuation) # remove punctuation 
     outwords = out.split()

@@ -35,6 +35,7 @@ stops = set(stopwords.words("english"))
 
 query = open(sys.argv[1]).read()
 query = query.rstrip("\n")                  # remove EOL
+query = query.lower()
 query = re.sub(r'-', ' ', query)            # replace - with space
 query = query.translate(string.maketrans("",""), string.punctuation) # remove punct
 query = re.sub(r'^\d\d\d ', '', query)      # remove the topic ID 
