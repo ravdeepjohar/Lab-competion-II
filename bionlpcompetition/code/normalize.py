@@ -4,6 +4,7 @@ import re
 import sys
 import string
 from nltk.corpus import stopwords
+from nltk.stem.porter import *
 
 # This program normalizes the file of sentences
 # extracted from the set of documents.
@@ -28,6 +29,7 @@ from nltk.corpus import stopwords
 # Rememeber that NLTK can do a lot of this for you!  
 
 stops = set(stopwords.words("english"))
+stemmer = PorterStemmer()
 
 file = sys.argv[1]
 sents = open(file)
@@ -40,6 +42,8 @@ for line in sents:
     out = sent.translate(string.maketrans("",""), string.punctuation) # remove punctuation 
     outwords = out.split()
     outwords_nostops = [w for w in outwords if not w in stops] # remove stop words
-    out = " ".join(outwords_nostops)
+    outwords_stemmed = [stemmer.stem(w) for w in outwords_nostops]
+    out = " ".join(outwords_stemmed)
+    # out = " ".join(outwords_nostops)
     print(parts[0] + "\t" + parts[1] + "\t" + out)
 sents.close()
