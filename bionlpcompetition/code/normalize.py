@@ -5,6 +5,8 @@ import sys
 import string
 from nltk.corpus import stopwords
 from nltk.stem.porter import *
+# from nltk.stem.snowball import *
+from nltk.stem import WordNetLemmatizer
 
 # This program normalizes the file of sentences
 # extracted from the set of documents.
@@ -30,6 +32,8 @@ from nltk.stem.porter import *
 
 stops = set(stopwords.words("english"))
 stemmer = PorterStemmer()
+# stemmer = EnglishStemmer()
+lemmatizer = WordNetLemmatizer()
 
 file = sys.argv[1]
 sents = open(file)
@@ -42,8 +46,10 @@ for line in sents:
     out = sent.translate(string.maketrans("",""), string.punctuation) # remove punctuation 
     outwords = out.split()
     outwords_nostops = [w for w in outwords if not w in stops] # remove stop words
-    outwords_stemmed = [stemmer.stem(w) for w in outwords_nostops]
-    out = " ".join(outwords_stemmed)
+    # outwords_stemmed = [stemmer.stem(w) for w in outwords_nostops]
+    outwords_lemmatized = [lemmatizer.lemmatize(w) for w in outwords_nostops]
+    out = " ".join(outwords_lemmatized)
+    # out = " ".join(outwords_stemmed)
     # out = " ".join(outwords_nostops)
     print(parts[0] + "\t" + parts[1] + "\t" + out)
 sents.close()
