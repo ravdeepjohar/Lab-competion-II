@@ -8,7 +8,7 @@
 
 ls -d $PWD/docs/* | while read i; do
     echo $i;
-   python2 code/splitsent.py $i > $i/sents.txt
+   python code/splitsent.py $i > $i/sents.txt
 done
 
 # Step 2: Normalize sentences
@@ -18,7 +18,7 @@ done
 
 ls docs/*/sents.txt | while read i; do
     echo $i
-    python2 code/normalize.py $i > $i.norm
+    python code/normalize.py $i > $i.norm
 done
 
 # Step 3: Build index
@@ -28,7 +28,7 @@ ls docs/*/*norm | while read i; do
     echo $i;
     newi=`echo $i | sed 's/sents.txt.norm/index.txt/g'`
     echo $newi
-    python2 code/buildindex.py $i > $newi
+    python code/buildindex.py $i > $newi
 done
 
 
@@ -37,7 +37,7 @@ done
 
 ls docs/ | while read i; do
     echo $i
-    python2 code/selectsent.py docs/$i/query.txt docs/$i/index.txt docs/$i/sents.txt > peers/$i.txt
+    python code/selectsent.py docs/$i/query.txt docs/$i/index.txt docs/$i/sents.txt > peers/$i.txt
 done
 
 

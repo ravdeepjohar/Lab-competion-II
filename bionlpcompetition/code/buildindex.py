@@ -27,11 +27,6 @@ word2sent = {}
 sentid = 0  
 
 file = sys.argv[1]
-
-# Score threshold
-if 'sents.txt' not in file and float('.'.join(file.split('.')[:2])) < 0.3 :
-    sys.exit()
-
 sents = open(file)
 for line in sents:
 

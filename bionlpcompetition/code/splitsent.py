@@ -57,8 +57,6 @@ for file in files:
     # any sentence you create that is
     # > 30 chars long.
     for line in doc:
-        if 'ACKNOWLEDGEMENTS' in line:
-            break
         line = line.rstrip('\n')
         sents = line.split(".")
         for s in sents:

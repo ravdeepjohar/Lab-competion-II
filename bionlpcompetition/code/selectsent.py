@@ -6,6 +6,9 @@ import string
 from nltk.corpus import stopwords
 from collections import Counter
 
+import nltk
+# from ast import literal_eval
+
 # This program reads in the query, 
 # scores and ranks the sentences, and
 # prints out a summary using that ranking.
@@ -35,11 +38,21 @@ stops = set(stopwords.words("english"))
 
 query = open(sys.argv[1]).read()
 query = query.rstrip("\n")                  # remove EOL
-query = query.lower()
 query = re.sub(r'-', ' ', query)            # replace - with space
 query = query.translate(string.maketrans("",""), string.punctuation) # remove punct
 query = re.sub(r'^\d\d\d ', '', query)      # remove the topic ID 
 qwords = [w for w in query.split() if not w in stops] # remove stop words
+qwords_tags = nltk.pos_tag(qwords)
+pattern = "NP: {<DT>?<JJ>*<NN>}" 
+NPChunker = nltk.RegexpParser(pattern)
+qresult = NPChunker.parse(qwords_tags)
+# qresult2 = nltk.chunk.util.tree2conlltags(qresult)
+# print result 
+
+# export MALTPARSERHOME="/home/luke/Workspace/ATCL_Lab2/maltparser-1.8/maltparser-1.8.jar"
+# parser = nltk.parse.malt.MaltParser()
+# graph = parser.parse(query)
+# graph.tree().pprint()
 
 # Second step: build list of candidate sentences
 sentlist = []
@@ -65,7 +78,7 @@ for s in sentlist:
 # Rank sentences according to the order in which they were
 # added to the list of sentences sharing at least one
 # word with the query.
-#rankedsents = newsentlist
+# rankedsents = newsentlist
 
 
 # This is a fancy way of taking a list, counting how many
