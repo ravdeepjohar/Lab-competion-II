@@ -43,11 +43,11 @@ query = query.translate(string.maketrans("",""), string.punctuation) # remove pu
 query = re.sub(r'^\d\d\d ', '', query)      # remove the topic ID 
 qwords = [w for w in query.split() if not w in stops] # remove stop words
 qwords_tags = nltk.pos_tag(qwords)
+
 pattern = "NP: {<DT>?<JJ>*<NN>}" 
 NPChunker = nltk.RegexpParser(pattern)
 qresult = NPChunker.parse(qwords_tags)
 # qresult2 = nltk.chunk.util.tree2conlltags(qresult)
-# print result 
 
 # export MALTPARSERHOME="/home/luke/Workspace/ATCL_Lab2/maltparser-1.8/maltparser-1.8.jar"
 # parser = nltk.parse.malt.MaltParser()

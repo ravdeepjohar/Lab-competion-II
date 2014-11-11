@@ -44,10 +44,11 @@ for line in sents:
     outwords_nostops = [w for w in outwords if not w in stops] # remove stop words
     out = " ".join(outwords_nostops)
 
-    out_tags = nltk.pos_tag(out)
+    out_tags = nltk.pos_tag(outwords_nostops)
     pattern = "NP: {<DT>?<JJ>*<NN>}" 
     NPChunker = nltk.RegexpParser(pattern)
     result = NPChunker.parse(out_tags)
+
     # result2 = nltk.chunk.util.tree2conlltags(result)
 
     out = str(result)
